@@ -1,0 +1,25 @@
+//========================================================//
+//===// Incorporating required mixins scss variables //===//
+//========================================================//
+
+@use './functions' as *;
+
+//==================//
+//===// Mixins //===//
+//==================//
+
+//===// Mobile layout //===//
+
+@mixin mobile {
+  @media screen and (min-width: brake(mobile)) {
+    @content;
+  }
+}
+
+//===// Desktop layout //===//
+
+@mixin desktop {
+  @media screen and (min-width: brake(desktop)) {
+    @content;
+  }
+}

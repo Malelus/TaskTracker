@@ -1,0 +1,31 @@
+//============================================================//
+//===// Incorporating required animations scss variables //===//
+//============================================================//
+
+@use '../abstracts' as *;
+
+//======================//
+//===// Animations //===//
+//======================//
+
+@keyframes create-task-show {
+  0%,
+  80% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes create-task-hide {
+  0% {
+    opacity: 1;
+  }
+
+  20%,
+  100% {
+    opacity: 0;
+  }
+}
