@@ -2,13 +2,87 @@
 //===// Colors //===//
 //==================//
 
+:root {
+  --status-0-bg-clr: hsl(225 55% 60%);
+  --status-0-clr: hsl(225 15% 95%);
+
+  --status-1-bg-clr: hsl(215 80% 45%);
+  --status-1-clr: hsl(215 100% 95%);
+
+  --status-2-bg-clr: hsl(130 60% 40%);
+  --status-2-clr: hsl(160 100% 95%);
+
+  --priority-0-bg-clr: hsl(225 55% 60%);
+  --priority-0-clr: hsl(225 15% 95%);
+
+  --priority-1-bg-clr: hsl(130 60% 40%);
+  --priority-1-clr: hsl(160 100% 95%);
+
+  --priority-2-bg-clr: hsl(40 100% 58%);
+  --priority-2-clr: hsl(40 100% 94%);
+
+  --priority-3-bg-clr: hsl(10 100% 58%);
+  --priority-3-clr: hsl(10 100% 94%);
+}
+
+body {
+  --light-clr: hsl(0 0% 98%);
+  --dark-clr: hsl(0 0% 20%);
+
+  --light-clr--dimmed: hsl(0 0% 49%);
+
+  --accent-clr: hsl(250 80% 60%);
+  --selection-clr: hsl(0 0% 98%);
+
+  --create-clr: hsl(130 60% 40%);
+  --danger-clr: hsl(0 70% 50%);
+
+  --create-clr--active: hsl(130 60% 35%);
+  --danger-clr--active: hsl(0 70% 45%);
+}
+
+body.dark {
+  --light-clr: hsl(0 0% 20%);
+  --dark-clr: hsl(0 0% 92%);
+
+  --light-clr--dimmed: hsl(0 0% 49%);
+
+  --accent-clr: hsl(250 80% 60%);
+}
+
 $color: (
-  'light-clr': hsl(0 0% 98%),
-  'light-clr--dimmed': hsl(0 0% 49%),
-  'dark-clr': hsl(0 0% 20%),
-  'accent-clr': hsl(250 80% 60%),
-  'create-clr': hsl(140, 90%, 25%),
-  'danger-clr': hsl(0 70% 50%),
-  'create-clr--active': hsl(140, 90%, 20%),
-  'danger-clr--active': hsl(0 70% 45%),
+  'light-clr': var(--light-clr),
+  'dark-clr': var(--dark-clr),
+  //
+  'light-clr--dimmed': var(--light-clr--dimmed),
+  //
+  'accent-clr': var(--accent-clr),
+  'selection-clr': var(--selection-clr),
+  //
+  'create-clr': var(--create-clr),
+  'danger-clr': var(--danger-clr),
+  //
+  'create-clr--active': var(--create-clr--active),
+  'danger-clr--active': var(--danger-clr--active),
+  // Task status & priority colors
+  'status-0-bg-clr': var(--status-0-bg-clr),
+  'status-0-clr': var(--status-0-clr),
+  //
+  'status-1-bg-clr': var(--status-1-bg-clr),
+  'status-1-clr': var(--status-1-clr),
+  //
+  'status-2-bg-clr': var(--status-2-bg-clr),
+  'status-2-clr': var(--status-2-clr),
+  //
+  'priority-0-bg-clr': var(--priority-0-bg-clr),
+  'priority-0-clr': var(--priority-0-clr),
+  //
+  'priority-1-bg-clr': var(--priority-1-bg-clr),
+  'priority-1-clr': var(--priority-1-clr),
+  //
+  'priority-2-bg-clr': var(--priority-2-bg-clr),
+  'priority-2-clr': var(--priority-2-clr),
+  //
+  'priority-3-bg-clr': var(--priority-3-bg-clr),
+  'priority-3-clr': var(--priority-3-clr),
 );

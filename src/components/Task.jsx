@@ -1,23 +1,29 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
-const Task = ({ task, removeTask, updateTask, changeStatus, changePriority }) => {
+const Task = ({ task, tasks, updateTask, changeStatus, changePriority, changePosition, removeTask }) => {
   const status = ['TO DO', 'IN PROGRESS', 'DONE'];
   const priority = ['LOW', 'NORMAL', 'HIGH', 'HIGHEST'];
-
-  const edited = useRef(null);
 
   const handleChange = (id, event) => {
     const { name, value } = event.target;
 
-    console.log(name, value);
-
     updateTask(id, { [name]: value });
   };
 
-  const checkIfContent = (event) => {
-    if (!event.target.value) {
+  const [showAlert, setShowAlert] = useState({ alertName: false, alertDueDate: false });
+  const edited = useRef(null);
+
+  const alertDuration = 1000;
+
+  const checkIfName = (event) => {
+    if (!event.target.value.trim()) {
       edited.current.focus();
-      return;
+
+      setShowAlert((prev) => ({ ...prev, alertName: true }));
+
+      setTimeout(() => {
+        setShowAlert((prev) => ({ ...prev, alertName: false }));
+      }, alertDuration);
     }
   };
 
@@ -30,55 +36,74 @@ const Task = ({ task, removeTask, updateTask, changeStatus, changePriority }) =>
         value={task.name}
         ref={edited}
         onChange={(event) => handleChange(task.id, event)}
-        onBlur={(event) => checkIfContent(event)}
+        onBlur={(event) => checkIfName(event)}
+        required
       />
-      <p className='task__due-date'>
-        {task.dueDate}
+      <span className={`task__name-border ${showAlert.alertName ? 'alert' : ''}`} />
+      <p className={`task__due-date ${showAlert.alertDueDate ? 'alert' : ''}`}>
+        {task.dueDate || 'Due date must be set!'}
         <input
           type='date'
           name='dueDate'
           className='task__due-date__picker'
           value={task.dueDate}
-          ref={edited}
           onChange={(event) => handleChange(task.id, event)}
-          onBlur={(event) => checkIfContent(event)}
+          required={true}
         />
       </p>
 
       <div className='task__change'>
-        <div className='task__change-container'>
+        <span className='task__change-title'>Status</span>
+        <div className='task__change-container task__change-status'>
           <button
-            className={`task__change-btn ${task.status === 2 ? 'task__change-btn--dimmed' : ''} btn`}
+            className={`task__change-btn btn ${task.status === 2 ? 'btn--dimmed' : ''}`}
             onClick={() => changeStatus(task.id, '+')}
           >
             <i className='fa-solid fa-caret-up' />
           </button>
           <span className={`task__change-value task__change-status-${task.status}`}>{status[task.status]}</span>
           <button
-            className={`task__change-btn ${task.status === 0 ? 'task__change-btn--dimmed' : ''} btn`}
+            className={`task__change-btn btn ${task.status === 0 ? 'btn--dimmed' : ''}`}
             onClick={() => changeStatus(task.id, '-')}
           >
             <i className='fa-solid fa-caret-down' />
           </button>
         </div>
 
-        <div className='task__change-container'>
+        <span className='task__change-title'>Priority</span>
+        <div className='task__change-container task__change-priority'>
           <button
-            className={`task__change-btn ${task.priority === 3 ? 'task__change-btn--dimmed' : ''} btn`}
+            className={`task__change-btn btn ${task.priority === 3 ? 'btn--dimmed' : ''}`}
             onClick={() => changePriority(task.id, '+')}
           >
             <i className='fa-solid fa-caret-up' />
           </button>
           <span className={`task__change-value task__change-priority-${task.priority}`}>{priority[task.priority]}</span>
           <button
-            className={`task__change-btn ${task.priority === 0 ? 'task__change-btn--dimmed' : ''} btn`}
+            className={`task__change-btn btn ${task.priority === 0 ? 'btn--dimmed' : ''}`}
             onClick={() => changePriority(task.id, '-')}
           >
             <i className='fa-solid fa-caret-down' />
           </button>
         </div>
 
-        <button className='task__remove-btn btn btn' onClick={() => removeTask(task.id)}>
+        <span className='task__change-title'>Move</span>
+        <div className='task__change-container task__change-position'>
+          <button
+            className={`task__change-btn btn ${tasks.indexOf(task) === 0 ? 'btn--dimmed' : ''}`}
+            onClick={() => changePosition(task.id, '+')}
+          >
+            <i className='fa-solid fa-caret-up' />
+          </button>
+          <button
+            className={`task__change-btn btn ${tasks.indexOf(task) === tasks.length - 1 ? 'btn--dimmed' : ''}`}
+            onClick={() => changePosition(task.id, '-')}
+          >
+            <i className='fa-solid fa-caret-down' />
+          </button>
+        </div>
+
+        <button className='task__remove-btn btn' onClick={() => removeTask(task.id)}>
           <i className='fa-solid fa-trash-can' />
         </button>
       </div>

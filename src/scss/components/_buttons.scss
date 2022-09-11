@@ -9,19 +9,18 @@
 //===================//
 
 .btn {
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   background-color: color(dark-clr);
   border: none;
   outline: none;
-  box-shadow: 5px 5px 0 color(accent-clr);
+  box-shadow: 5px 5px color(accent-clr);
   color: color(light-clr);
   font-family: inherit;
   font-size: 1rem;
   padding: 0.5em 1em;
   transition: box-shadow 250ms ease-in-out;
-
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
 
   &--icon {
     display: flex;
@@ -30,6 +29,10 @@
     align-items: center;
     gap: 1rem;
     width: fit-content;
+  }
+
+  &--dimmed {
+    color: color(light-clr--dimmed);
   }
 
   &:hover,
