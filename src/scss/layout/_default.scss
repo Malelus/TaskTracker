@@ -129,7 +129,7 @@ body {
     font-size: 1.15rem;
     padding: 0.5em;
 
-    &[name='dueDate'] {
+    &[name='date'] {
       &::-webkit-calendar-picker-indicator {
         position: absolute;
         inset: 0;
@@ -259,7 +259,7 @@ body {
     visibility: visible;
   }
 
-  &__due-date {
+  &__date {
     position: relative;
     margin-block: 1rem 2rem;
     font-size: 1.05rem;

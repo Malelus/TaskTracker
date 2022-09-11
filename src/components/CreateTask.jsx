@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { nanoid } from 'nanoid';
 
 const CreateTask = ({ pushTask, showCreateTask }) => {
-  const initialTaskData = { id: nanoid(), name: '', dueDate: '', status: 0, priority: 1 };
+  const initialTaskData = { id: nanoid(), name: '', date: '', status: 0, priority: 1 };
   const [taskData, setTaskData] = useState(initialTaskData);
   const collapse = useRef(null);
 
@@ -16,11 +16,11 @@ const CreateTask = ({ pushTask, showCreateTask }) => {
     }));
   };
 
-  const [showAlert, setShowAlert] = useState({ alertName: false, alertDueDate: false });
+  const [showAlert, setShowAlert] = useState({ alertName: false, alertDate: false });
   const alertDuration = 1000;
 
   const handleSubmit = () => {
-    if (!taskData.name.trim() || !taskData.dueDate) {
+    if (!taskData.name.trim() || !taskData.date) {
       if (!taskData.name.trim()) {
         setShowAlert((prev) => ({ ...prev, alertName: true }));
 
@@ -29,11 +29,11 @@ const CreateTask = ({ pushTask, showCreateTask }) => {
         }, alertDuration);
       }
 
-      if (!taskData.dueDate) {
-        setShowAlert((prev) => ({ ...prev, alertDueDate: true }));
+      if (!taskData.date) {
+        setShowAlert((prev) => ({ ...prev, alertDate: true }));
 
         setTimeout(() => {
-          setShowAlert((prev) => ({ ...prev, alertDueDate: false }));
+          setShowAlert((prev) => ({ ...prev, alertDate: false }));
         }, alertDuration);
       }
 
@@ -65,15 +65,15 @@ const CreateTask = ({ pushTask, showCreateTask }) => {
         />
       </div>
       <div>
-        <label htmlFor='dueDate' className={`create-task__label ${showAlert.alertDueDate ? 'alert' : ''}`}>
-          Due Date
+        <label htmlFor='date' className={`create-task__label ${showAlert.alertDate ? 'alert' : ''}`}>
+          Date
         </label>
         <input
           type='date'
-          id='dueDate'
-          name='dueDate'
+          id='date'
+          name='date'
           className='create-task__input'
-          value={taskData.dueDate}
+          value={taskData.date}
           onChange={(event) => handleChange(event.target)}
           required
         />
@@ -81,7 +81,7 @@ const CreateTask = ({ pushTask, showCreateTask }) => {
 
       <button
         className={`create-task__submit ${
-          showAlert.alertName || showAlert.alertDueDate ? 'create-task__submit--alert' : ''
+          showAlert.alertName || showAlert.alertDate ? 'create-task__submit--alert' : ''
         } btn btn--icon `}
         onClick={handleSubmit}
       >

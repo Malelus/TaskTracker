@@ -290,7 +290,7 @@ body {
   font-size: 1.15rem;
   padding: 0.5em;
 }
-.create-task__input[name=dueDate]::-webkit-calendar-picker-indicator {
+.create-task__input[name=date]::-webkit-calendar-picker-indicator {
   position: absolute;
   inset: 0;
   left: 7.8rem;
@@ -301,7 +301,7 @@ body {
   color: transparent;
   border-left: 3px solid var(--dark-clr);
 }
-.create-task__input[name=dueDate]::before {
+.create-task__input[name=date]::before {
   content: "\f133";
   position: absolute;
   top: 50%;
@@ -406,7 +406,7 @@ body {
   opacity: 1;
   visibility: visible;
 }
-.task__due-date {
+.task__date {
   position: relative;
   margin-block: 1rem 2rem;
   font-size: 1.05rem;
@@ -414,7 +414,7 @@ body {
   align-items: center;
   gap: 0.5rem;
 }
-.task__due-date__picker {
+.task__date__picker {
   position: relative;
   width: 19px;
   -webkit-appearance: none;
@@ -430,10 +430,10 @@ body {
   color: var(--light-clr);
   font-size: 1.15rem;
 }
-.task__due-date__picker::-webkit-datetime-edit-text, .task__due-date__picker::-webkit-datetime-edit-month-field, .task__due-date__picker::-webkit-datetime-edit-day-field, .task__due-date__picker::-webkit-datetime-edit-year-field {
+.task__date__picker::-webkit-datetime-edit-text, .task__date__picker::-webkit-datetime-edit-month-field, .task__date__picker::-webkit-datetime-edit-day-field, .task__date__picker::-webkit-datetime-edit-year-field {
   display: none;
 }
-.task__due-date__picker::-webkit-calendar-picker-indicator {
+.task__date__picker::-webkit-calendar-picker-indicator {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -441,7 +441,7 @@ body {
   cursor: pointer;
   opacity: 0;
 }
-.task__due-date__picker::before {
+.task__date__picker::before {
   position: absolute;
   top: 0;
   height: 100%;

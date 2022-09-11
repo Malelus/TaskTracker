@@ -10,7 +10,7 @@ const Task = ({ task, tasks, updateTask, changeStatus, changePriority, changePos
     updateTask(id, { [name]: value });
   };
 
-  const [showAlert, setShowAlert] = useState({ alertName: false, alertDueDate: false });
+  const [showNameAlert, setShowNameAlert] = useState(false);
   const edited = useRef(null);
 
   const alertDuration = 1000;
@@ -19,10 +19,10 @@ const Task = ({ task, tasks, updateTask, changeStatus, changePriority, changePos
     if (!event.target.value.trim()) {
       edited.current.focus();
 
-      setShowAlert((prev) => ({ ...prev, alertName: true }));
+      setShowNameAlert(true);
 
       setTimeout(() => {
-        setShowAlert((prev) => ({ ...prev, alertName: false }));
+        setShowNameAlert(false);
       }, alertDuration);
     }
   };
@@ -39,16 +39,16 @@ const Task = ({ task, tasks, updateTask, changeStatus, changePriority, changePos
         onBlur={(event) => checkIfName(event)}
         required
       />
-      <span className={`task__name-border ${showAlert.alertName ? 'alert' : ''}`} />
-      <p className={`task__due-date ${showAlert.alertDueDate ? 'alert' : ''}`}>
-        {task.dueDate || 'Due date must be set!'}
+      <span className={`task__name-border ${showNameAlert ? 'alert' : ''}`} />
+      <p className='task__date'>
+        {task.date || 'Date must be set!'}
         <input
           type='date'
-          name='dueDate'
-          className='task__due-date__picker'
-          value={task.dueDate}
+          name='date'
+          className='task__date__picker'
+          value={task.date}
           onChange={(event) => handleChange(task.id, event)}
-          required={true}
+          required
         />
       </p>
 
