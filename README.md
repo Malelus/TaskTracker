@@ -34,7 +34,9 @@
 
 - each task has its current execution status and its priority which can be changed,
 
-- after creating a task, it is possible to change its position relative to other tasks, for this [array-move](https://www.npmjs.com/package/array-move) is used.
+- after creating a task, it is possible to change its position relative to other tasks, for this [array-move](https://www.npmjs.com/package/array-move) is used,
+
+- github links are located under the task list.
 
 #### Look:
 
