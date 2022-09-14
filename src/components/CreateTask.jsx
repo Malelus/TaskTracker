@@ -7,6 +7,7 @@ const CreateTask = ({ pushTask, showCreateTask }) => {
   const [taskData, setTaskData] = useState(initialTaskData);
   const collapse = useRef(null);
 
+  // Update the data entered into the form
   const handleChange = (event) => {
     const { name, value } = event;
 
@@ -19,6 +20,7 @@ const CreateTask = ({ pushTask, showCreateTask }) => {
   const [showAlert, setShowAlert] = useState({ alertName: false, alertDate: false });
   const alertDuration = 1000;
 
+  // Validation of the entered information about the task
   const handleSubmit = () => {
     if (!taskData.name.trim() || !taskData.date) {
       if (!taskData.name.trim()) {

@@ -15,10 +15,12 @@
 
 - the website has been designed in a responsive way so that it can be used freely and comfortably on any device:
 
-| Smartphone                                                                                          | Mobile                                                                                           |
-| --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| < 768px                                                                                             | >= 768px                                                                                         |
-| View adapted for use on a smartphone, hamburger menu (expandable navigation) (initial site design), | Mobile view, fixed navigation bar on top, fonts resize and fit of animations for larger screens, |
+| Smartphone                                                  | Mobile                                                                                           |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| < 768px                                                     | >= 768px                                                                                         |
+| View adapted for use on a smartphone (initial site design), | Mobile view, fixed navigation bar on top, fonts resize and fit of animations for larger screens, |
+
+- open graph tags (page preview in pasted link) in the head of the page,
 
 - button at the top of the page to change the theme of the page, and the selected theme is saved to local storage,
 

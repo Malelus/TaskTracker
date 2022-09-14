@@ -444,9 +444,9 @@ body {
 .task__date__picker::before {
   position: absolute;
   top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
-  left: 0.2px;
   background-color: var(--light-clr);
   color: var(--dark-clr);
   font-family: "Font Awesome 6 Free";

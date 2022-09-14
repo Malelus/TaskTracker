@@ -6,10 +6,11 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 
 import NoTasks from './components/NoTasks';
-import Tasks from './components/Tasks';
+import TasksList from './components/TasksList';
 import CreateTask from './components/CreateTask';
 
 const App = () => {
+  // Change the site theme and save it to local storage
   const [darkTheme, setDarkTheme] = useState(() => JSON.parse(localStorage.getItem('darkTheme')) || false);
 
   useEffect(() => {
@@ -110,7 +111,7 @@ const App = () => {
       />
       <CreateTask pushTask={pushTask} showCreateTask={showCreateTask} />
       {tasks.length > 0 ? (
-        <Tasks
+        <TasksList
           tasks={tasks}
           removeTask={removeTask}
           updateTask={updateTask}

@@ -4,6 +4,7 @@ const Task = ({ task, tasks, updateTask, changeStatus, changePriority, changePos
   const status = ['TO DO', 'IN PROGRESS', 'DONE'];
   const priority = ['LOW', 'NORMAL', 'HIGH', 'HIGHEST'];
 
+  // Making changes to the created task
   const handleChange = (id, event) => {
     const { name, value } = event.target;
 
@@ -15,6 +16,7 @@ const Task = ({ task, tasks, updateTask, changeStatus, changePriority, changePos
 
   const alertDuration = 1000;
 
+  // Checking if the task has a name
   const checkIfName = (event) => {
     if (!event.target.value.trim()) {
       edited.current.focus();
