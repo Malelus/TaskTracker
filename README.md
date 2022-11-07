@@ -1,6 +1,6 @@
 # Task Tracker - keep track of your tasks!
 
-> ### [Page link](https://malelus-task-tracker.netlify.app/)
+> ### [Page link](https://task-tracker.mndev.eu)
 
 ---
 
