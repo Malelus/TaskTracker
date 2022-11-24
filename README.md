@@ -4,7 +4,7 @@
 
 ---
 
-#### The project was built using vite, frontend of the site was written in ReactJS and SCSS to write to CSS code, used icons from https://fontawesome.com/
+#### The project was built using vite, frontend of the site was written in ReactJS with Typescript and SCSS to write to CSS code, used icons from https://fontawesome.com/
 
 - used fonts:
   - [Montserrat](https://fonts.google.com/specimen/Montserrat)
@@ -30,13 +30,13 @@
 
 - once a task is created, it is saved to local storage
 
-- [nanoid](https://www.npmjs.com/package/nanoid) is used to generate an id for a task,
+- [uuid](https://www.npmjs.com/package/uuid) is used to generate an id for a task,
 
 - once the task is created, it is possible to edit it without having to create it again for adjustment,
 
 - each task has its current execution status and its priority which can be changed,
 
-- after creating a task, it is possible to change its position relative to other tasks, for this [array-move](https://www.npmjs.com/package/array-move) is used,
+- after creating a task, it is possible to change its position relative to other tasks,
 
 - github links are located under the task list.
 

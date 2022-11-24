@@ -16,18 +16,14 @@
   }
 }
 
-//===// Alert //===//
+//===// Error //===//
 
-@mixin alert {
+@mixin error {
   position: absolute;
   z-index: -1;
   user-select: none;
   opacity: 0;
   visibility: hidden;
-  background-color: color(dark-clr);
-  box-shadow: 5px 5px color(light-clr--dimmed);
-  color: color(light-clr);
-  font-size: 0.75rem;
-  padding: 0.5em 1em;
+  color: color(danger-clr);
   transition: opacity var(--transition-duration) ease-in-out, visibility var(--transition-duration) ease-in-out;
 }

@@ -92,7 +92,9 @@ img {
 body {
   --light-clr: hsl(0 0% 98%);
   --dark-clr: hsl(0 0% 20%);
-  --light-clr--dimmed: hsl(0 0% 49%);
+  --primary-clr: var(--light-clr);
+  --secondary-clr: var(--dark-clr);
+  --primary-clr--dimmed: hsl(0 0% 49%);
   --accent-clr: hsl(250 80% 60%);
   --selection-clr: hsl(0 0% 98%);
   --create-clr: hsl(130 60% 40%);
@@ -102,10 +104,8 @@ body {
 }
 
 body.dark {
-  --light-clr: hsl(0 0% 20%);
-  --dark-clr: hsl(0 0% 92%);
-  --light-clr--dimmed: hsl(0 0% 49%);
-  --accent-clr: hsl(250 80% 60%);
+  --primary-clr: var(--dark-clr);
+  --secondary-clr: hsl(0 0% 92%);
 }
 
 @-webkit-keyframes create-task-show {
@@ -148,11 +148,11 @@ body.dark {
           user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
-  background-color: var(--dark-clr);
+  background-color: var(--secondary-clr);
   border: none;
   outline: none;
   box-shadow: 5px 5px var(--accent-clr);
-  color: var(--light-clr);
+  color: var(--primary-clr);
   font-family: inherit;
   font-size: 1rem;
   padding: 0.5em 1em;
@@ -169,10 +169,13 @@ body.dark {
   width: fit-content;
 }
 .btn--dimmed {
-  color: var(--light-clr--dimmed);
+  color: var(--primary-clr--dimmed);
 }
-.btn:hover, .btn:focus {
+.btn:is(:hover, :focus) {
   box-shadow: 7.5px 7.5px 0 var(--accent-clr);
+}
+.btn:active {
+  box-shadow: 3.5px 3.5px 0 var(--accent-clr);
 }
 
 :root {
@@ -188,7 +191,7 @@ body.dark {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--dark-clr);
+  background: var(--secondary-clr);
 }
 
 ::-moz-selection {
@@ -202,8 +205,8 @@ body.dark {
 }
 
 body {
-  background-color: var(--light-clr);
-  color: var(--dark-clr);
+  background-color: var(--primary-clr);
+  color: var(--secondary-clr);
   font-family: "Montserrat", sans-serif;
   line-height: 1.5;
 }
@@ -219,12 +222,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 1.5rem;
+  -webkit-margin-before: 1.5rem;
+          margin-block-start: 1.5rem;
 }
 .header__title {
   font-size: 1.25rem;
 }
-.header__buttons {
+.header__control {
   display: flex;
   gap: 1rem;
 }
@@ -249,18 +253,18 @@ body {
   -webkit-animation: create-task-show var(--transition-duration) ease-in-out;
           animation: create-task-show var(--transition-duration) ease-in-out;
 }
-.create-task > div:last-of-type {
-  margin-top: 1rem;
+.create-task > div:nth-child(2) {
+  -webkit-margin-before: 1rem;
+          margin-block-start: 1rem;
 }
 .create-task__label {
   display: block;
   position: relative;
   font-size: 1rem;
-  margin-bottom: 0.5rem;
+  -webkit-margin-after: 0.25rem;
+          margin-block-end: 0.25rem;
 }
 .create-task__label::before {
-  content: "Please fill in the field!";
-  bottom: -0.25rem;
   right: 0;
   position: absolute;
   z-index: -1;
@@ -270,23 +274,25 @@ body {
           user-select: none;
   opacity: 0;
   visibility: hidden;
-  background-color: var(--dark-clr);
-  box-shadow: 5px 5px var(--light-clr--dimmed);
-  color: var(--light-clr);
-  font-size: 0.75rem;
-  padding: 0.5em 1em;
+  color: var(--danger-clr);
   transition: opacity var(--transition-duration) ease-in-out, visibility var(--transition-duration) ease-in-out;
 }
-.create-task .alert.create-task__label::before {
+.create-task__label[for=name]::before {
+  content: "Please fill in the name field!";
+}
+.create-task__label[for=date]::before {
+  content: "Please fill in the date field!";
+}
+.create-task .error.create-task__label::before {
   opacity: 1;
   visibility: visible;
 }
 .create-task__input {
   position: relative;
   width: 100%;
-  background-color: var(--light-clr);
-  border: 3px solid var(--dark-clr);
-  color: var(--dark-clr);
+  background-color: var(--primary-clr);
+  border: 3px solid var(--secondary-clr);
+  color: var(--secondary-clr);
   font-size: 1.15rem;
   padding: 0.5em;
 }
@@ -299,46 +305,72 @@ body {
   cursor: pointer;
   background: transparent;
   color: transparent;
-  border-left: 3px solid var(--dark-clr);
+  -webkit-border-start: 3px solid var(--secondary-clr);
+          border-inline-start: 3px solid var(--secondary-clr);
+}
+.create-task__input[name=date]::-webkit-calendar-picker-indicator:focus {
+  outline-offset: -8px;
 }
 .create-task__input[name=date]::before {
   content: "\f133";
   position: absolute;
   top: 50%;
   right: 21px;
-  color: var(--dark-clr);
+  color: var(--secondary-clr);
   font-family: "Font Awesome 6 Free";
-  transform: translateY(-50%);
+  translate: 0 -50%;
+}
+.create-task__actions {
+  -webkit-margin-before: 2rem;
+          margin-block-start: 2rem;
+  width: 100%;
+  display: flex;
+  gap: 1rem;
 }
 .create-task__submit {
   width: 100%;
   font-size: 1.25rem;
-  margin-top: 2rem;
   transition: box-shadow var(--transition-duration) ease-in-out, background-color var(--transition-duration) ease-in-out;
 }
-.create-task__submit:hover, .create-task__submit:focus {
+.create-task__submit:is(:hover, :focus) {
   background-color: var(--create-clr);
 }
 .create-task__submit:active {
   background-color: var(--create-clr--active);
 }
-.create-task__submit--alert {
+.create-task__submit--error {
   background-color: var(--danger-clr);
 }
-.create-task__submit--alert:hover, .create-task__submit--alert:focus {
+.create-task__submit--error:is(:hover, :focus) {
   background-color: var(--danger-clr);
 }
-.create-task__submit--alert:active {
+.create-task__submit--error:active {
+  background-color: var(--danger-clr--active);
+}
+.create-task__clear {
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  transition: box-shadow var(--transition-duration) ease-in-out, background-color var(--transition-duration) ease-in-out;
+}
+.create-task__clear:is(:hover, :focus) {
+  background-color: var(--danger-clr);
+}
+.create-task__clear:active {
   background-color: var(--danger-clr--active);
 }
 
 .tasks {
-  border-top: 3px solid var(--dark-clr);
-  padding-top: 2rem;
-  margin-bottom: 8rem;
+  -webkit-border-before: 3px solid var(--secondary-clr);
+          border-block-start: 3px solid var(--secondary-clr);
+  -webkit-padding-before: 2rem;
+          padding-block-start: 2rem;
+  -webkit-margin-after: 8rem;
+          margin-block-end: 8rem;
 }
 .tasks__title {
-  margin-bottom: -1rem;
+  -webkit-margin-after: -1rem;
+          margin-block-end: -1rem;
 }
 .tasks__container {
   display: flex;
@@ -346,21 +378,23 @@ body {
   gap: 3rem;
 }
 .tasks__no-tasks {
-  margin-bottom: 4rem;
+  -webkit-margin-after: 4rem;
+          margin-block-end: 4rem;
 }
 
 .task__name {
   position: relative;
+  width: 100%;
   overflow: visible;
   cursor: pointer;
   font-size: 1.15rem;
   border: none;
-  background-color: var(--light-clr);
-  color: var(--dark-clr);
+  background-color: var(--primary-clr);
+  color: var(--secondary-clr);
   padding: 0.5em 0;
 }
-.task__name:hover + .task__name-border::after, .task__name:focus + .task__name-border::after {
-  transform: scaleX(100%);
+.task__name:is(:hover, :focus) + .task__name-border::after {
+  scale: 100% 100%;
 }
 .task__name-border {
   position: relative;
@@ -375,11 +409,7 @@ body {
           user-select: none;
   opacity: 0;
   visibility: hidden;
-  background-color: var(--dark-clr);
-  box-shadow: 5px 5px var(--light-clr--dimmed);
-  color: var(--light-clr);
-  font-size: 0.75rem;
-  padding: 0.5em 1em;
+  color: var(--danger-clr);
   transition: opacity var(--transition-duration) ease-in-out, visibility var(--transition-duration) ease-in-out;
   content: "Task name can't be empty!";
   top: -2.5rem;
@@ -397,60 +427,51 @@ body {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  background-color: var(--dark-clr);
-  transform: scaleX(25%);
+  background-color: var(--secondary-clr);
+  scale: 25% 100%;
   transform-origin: left;
-  transition: transform var(--transition-duration) ease-in-out;
+  transition: scale var(--transition-duration) ease-in-out;
 }
-.task .alert.task__name-border::before {
+.task .error.task__name-border::before {
   opacity: 1;
   visibility: visible;
 }
 .task__date {
-  position: relative;
-  margin-block: 1rem 2rem;
-  font-size: 1.05rem;
   display: flex;
+  gap: 0.1em;
+  margin-block: 1rem 2rem;
   align-items: center;
-  gap: 0.5rem;
 }
-.task__date__picker {
+.task__date-input {
   position: relative;
-  width: 19px;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  background-color: var(--dark-clr);
+  width: 7rem;
   cursor: pointer;
+  background-color: var(--primary-clr);
   border: none;
-  color: var(--light-clr);
-  font-size: 1.15rem;
+  color: var(--secondary-clr);
+  font-size: 1.05rem;
+  font-family: inherit;
+  padding-block: 0.2em;
 }
-.task__date__picker::-webkit-datetime-edit-text, .task__date__picker::-webkit-datetime-edit-month-field, .task__date__picker::-webkit-datetime-edit-day-field, .task__date__picker::-webkit-datetime-edit-year-field {
+.task__date-input::-webkit-calendar-picker-indicator {
   display: none;
 }
-.task__date__picker::-webkit-calendar-picker-indicator {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  opacity: 0;
+.task__date-input::-moz-clear {
+  display: none;
 }
-.task__date__picker::before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: var(--light-clr);
-  color: var(--dark-clr);
-  font-family: "Font Awesome 6 Free";
-  content: "\f133";
+.task__date:has(.task__date-input) .task__date-input {
+  width: 5.5rem;
+}
+.task__date .task__date-picker {
+  border: none;
+  background-color: var(--primary-clr);
+  font-size: 1.05rem;
+  color: var(--secondary-clr);
+  padding: 0.3575em;
+  transition: scale var(--transition-duration) ease-in-out;
+}
+.task__date .task__date-picker:is(:hover, :focus) {
+  scale: 1.15;
 }
 .task__change {
   display: grid;
@@ -470,13 +491,14 @@ body {
   gap: 0.5rem;
 }
 .task__change-title {
-  box-shadow: 5px 5px var(--light-clr--dimmed);
-  background-color: var(--dark-clr);
-  color: var(--light-clr);
+  box-shadow: 5px 5px var(--primary-clr--dimmed);
+  background-color: var(--secondary-clr);
+  color: var(--primary-clr);
   text-align: center;
   font-weight: 700;
   padding: 0.5em 1em;
-  margin-bottom: -1rem;
+  -webkit-margin-after: -1rem;
+          margin-block-end: -1rem;
 }
 .task__change-title:first-of-type {
   grid-row: 1;
@@ -494,14 +516,14 @@ body {
   transition: box-shadow var(--transition-duration) ease-in-out, color var(--transition-duration) ease-in-out;
 }
 .task__change-btn > i {
-  transition: transform var(--transition-duration) ease-in-out;
+  transition: scale var(--transition-duration) ease-in-out;
 }
-.task__change-btn:hover > i, .task__change-btn:focus > i {
-  transform: scale(1.15);
+.task__change-btn:is(:hover, :focus) > i {
+  scale: 1.15;
 }
 .task__change-value {
-  box-shadow: 5px 5px var(--light-clr--dimmed);
-  border: 3px solid var(--bg-clr, var(--dark-clr));
+  box-shadow: 5px 5px var(--primary-clr--dimmed);
+  border: 3px solid var(--bg-clr, var(--secondary-clr));
   font-weight: 700;
   text-align: center;
   transition: background-color var(--transition-duration) ease-in-out, border-color var(--transition-duration) ease-in-out, color var(--transition-duration) ease-in-out;
@@ -564,7 +586,7 @@ body {
   font-size: 1.5rem;
   transition: box-shadow var(--transition-duration) ease-in-out, background-color var(--transition-duration) ease-in-out;
 }
-.task__remove-btn:hover, .task__remove-btn:focus {
+.task__remove-btn:is(:hover, :focus) {
   background-color: var(--danger-clr);
 }
 .task__remove-btn:active {
@@ -590,7 +612,8 @@ body {
     gap: 1rem 0.5rem;
   }
   .task__change-title {
-    margin-bottom: auto;
+    -webkit-margin-after: auto;
+            margin-block-end: auto;
   }
   .task__change-title:last-of-type {
     margin-block: 1rem auto;
@@ -599,6 +622,7 @@ body {
     grid-row: span 4;
     grid-column: 3;
     font-size: 2.5rem;
-    margin-left: 0.5rem;
+    -webkit-margin-start: 0.5rem;
+            margin-inline-start: 0.5rem;
   }
 }

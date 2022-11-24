@@ -1,0 +1,4 @@
+{
+  "statusLabels": ["TO DO", "IN PROGRESS", "DONE"],
+  "priorityLabels": ["LOW", "NORMAL", "HIGH", "HIGHEST"]
+}

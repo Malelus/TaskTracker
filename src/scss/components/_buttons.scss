@@ -12,11 +12,11 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
-  background-color: color(dark-clr);
+  background-color: color(secondary-clr);
   border: none;
   outline: none;
   box-shadow: 5px 5px color(accent-clr);
-  color: color(light-clr);
+  color: color(primary-clr);
   font-family: inherit;
   font-size: 1rem;
   padding: 0.5em 1em;
@@ -32,11 +32,14 @@
   }
 
   &--dimmed {
-    color: color(light-clr--dimmed);
+    color: color(primary-clr--dimmed);
   }
 
-  &:hover,
-  &:focus {
+  &:is(:hover, :focus) {
     box-shadow: 7.5px 7.5px 0 color(accent-clr);
+  }
+
+  &:active {
+    box-shadow: 3.5px 3.5px 0 color(accent-clr);
   }
 }

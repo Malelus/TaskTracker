@@ -25,7 +25,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: color(dark-clr);
+  background: color(secondary-clr);
 }
 
 //===// Text selection //===//
@@ -38,8 +38,8 @@
 //===// Body //===//
 
 body {
-  background-color: color(light-clr);
-  color: color(dark-clr);
+  background-color: color(primary-clr);
+  color: color(secondary-clr);
   font-family: font(main);
   line-height: 1.5;
 }
@@ -59,13 +59,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 1.5rem;
+  margin-block-start: 1.5rem;
 
   &__title {
     font-size: 1.25rem;
   }
 
-  &__buttons {
+  &__control {
     display: flex;
     gap: 1rem;
   }
@@ -96,26 +96,32 @@ body {
     animation: create-task-show var(--transition-duration) ease-in-out;
   }
 
-  & > div:last-of-type {
-    margin-top: 1rem;
+  & > div:nth-child(2) {
+    margin-block-start: 1rem;
   }
 
   &__label {
     display: block;
     position: relative;
     font-size: 1rem;
-    margin-bottom: 0.5rem;
+    margin-block-end: 0.25rem;
 
     &::before {
-      content: 'Please fill in the field!';
-      bottom: -0.25rem;
       right: 0;
 
-      @include alert;
+      @include error;
+    }
+
+    &[for='name']::before {
+      content: 'Please fill in the name field!';
+    }
+
+    &[for='date']::before {
+      content: 'Please fill in the date field!';
     }
   }
 
-  .alert.create-task__label::before {
+  .error.create-task__label::before {
     opacity: 1;
     visibility: visible;
   }
@@ -123,9 +129,9 @@ body {
   &__input {
     position: relative;
     width: 100%;
-    background-color: color(light-clr);
-    border: 3px solid color(dark-clr);
-    color: color(dark-clr);
+    background-color: color(primary-clr);
+    border: 3px solid color(secondary-clr);
+    color: color(secondary-clr);
     font-size: 1.15rem;
     padding: 0.5em;
 
@@ -139,7 +145,11 @@ body {
         cursor: pointer;
         background: transparent;
         color: transparent;
-        border-left: 3px solid color(dark-clr);
+        border-inline-start: 3px solid color(secondary-clr);
+
+        &:focus {
+          outline-offset: -8px;
+        }
       }
 
       &::before {
@@ -147,22 +157,27 @@ body {
         position: absolute;
         top: 50%;
         right: 21px;
-        color: color(dark-clr);
+        color: color(secondary-clr);
         font-family: 'Font Awesome 6 Free';
-        transform: translateY(-50%);
+        translate: 0 -50%;
       }
     }
+  }
+
+  &__actions {
+    margin-block-start: 2rem;
+    width: 100%;
+    display: flex;
+    gap: 1rem;
   }
 
   &__submit {
     width: 100%;
     font-size: 1.25rem;
-    margin-top: 2rem;
     transition: box-shadow var(--transition-duration) ease-in-out,
       background-color var(--transition-duration) ease-in-out;
 
-    &:hover,
-    &:focus {
+    &:is(:hover, :focus) {
       background-color: color(create-clr);
     }
 
@@ -170,11 +185,10 @@ body {
       background-color: color(create-clr--active);
     }
 
-    &--alert {
+    &--error {
       background-color: color(danger-clr);
 
-      &:hover,
-      &:focus {
+      &:is(:hover, :focus) {
         background-color: color(danger-clr);
       }
 
@@ -183,17 +197,31 @@ body {
       }
     }
   }
+
+  &__clear {
+    width: min-content;
+    transition: box-shadow var(--transition-duration) ease-in-out,
+      background-color var(--transition-duration) ease-in-out;
+
+    &:is(:hover, :focus) {
+      background-color: color(danger-clr);
+    }
+
+    &:active {
+      background-color: color(danger-clr--active);
+    }
+  }
 }
 
 //===// Tasks
 
 .tasks {
-  border-top: 3px solid color(dark-clr);
-  padding-top: 2rem;
-  margin-bottom: 8rem;
+  border-block-start: 3px solid color(secondary-clr);
+  padding-block-start: 2rem;
+  margin-block-end: 8rem;
 
   &__title {
-    margin-bottom: -1rem;
+    margin-block-end: -1rem;
   }
 
   &__container {
@@ -203,7 +231,7 @@ body {
   }
 
   &__no-tasks {
-    margin-bottom: 4rem;
+    margin-block-end: 4rem;
   }
 }
 
@@ -212,17 +240,17 @@ body {
 .task {
   &__name {
     position: relative;
+    width: 100%;
     overflow: visible;
     cursor: pointer;
     font-size: 1.15rem;
     border: none;
-    background-color: color(light-clr);
-    color: color(dark-clr);
+    background-color: color(primary-clr);
+    color: color(secondary-clr);
     padding: 0.5em 0;
 
-    &:hover + &-border::after,
-    &:focus + &-border::after {
-      transform: scaleX(100%);
+    &:is(:hover, :focus) + &-border::after {
+      scale: 100% 100%;
     }
 
     &-border {
@@ -230,7 +258,7 @@ body {
       display: block;
 
       &::before {
-        @include alert;
+        @include error;
 
         content: "Task name can't be empty!";
         top: -2.5rem;
@@ -246,64 +274,59 @@ body {
         width: 100%;
         pointer-events: none;
         user-select: none;
-        background-color: color(dark-clr);
-        transform: scaleX(25%);
+        background-color: color(secondary-clr);
+        scale: 25% 100%;
         transform-origin: left;
-        transition: transform var(--transition-duration) ease-in-out;
+        transition: scale var(--transition-duration) ease-in-out;
       }
     }
   }
 
-  .alert.task__name-border::before {
+  .error.task__name-border::before {
     opacity: 1;
     visibility: visible;
   }
 
   &__date {
-    position: relative;
-    margin-block: 1rem 2rem;
-    font-size: 1.05rem;
     display: flex;
+    gap: 0.1em;
+    margin-block: 1rem 2rem;
     align-items: center;
-    gap: 0.5rem;
 
-    &__picker {
+    &-input {
       position: relative;
-      width: 19px;
-      appearance: none;
-      user-select: none;
-      background-color: color(dark-clr);
+      width: 7rem;
       cursor: pointer;
+      background-color: color(primary-clr);
       border: none;
-      color: color(light-clr);
-      font-size: 1.15rem;
+      color: color(secondary-clr);
+      font-size: 1.05rem;
+      font-family: inherit;
+      padding-block: 0.2em;
 
-      &::-webkit-datetime-edit-text,
-      &::-webkit-datetime-edit-month-field,
-      &::-webkit-datetime-edit-day-field,
-      &::-webkit-datetime-edit-year-field {
+      &::-webkit-calendar-picker-indicator {
         display: none;
       }
 
-      &::-webkit-calendar-picker-indicator {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-        opacity: 0;
+      &::-moz-clear {
+        display: none;
       }
+    }
 
-      &::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        background-color: color(light-clr);
-        color: color(dark-clr);
-        font-family: 'Font Awesome 6 Free';
-        content: '\f133';
+    &:has(&-input) &-input {
+      width: 5.5rem;
+    }
+
+    & &-picker {
+      border: none;
+      background-color: color(primary-clr);
+      font-size: 1.05rem;
+      color: color(secondary-clr);
+      padding: 0.3575em;
+      transition: scale var(--transition-duration) ease-in-out;
+
+      &:is(:hover, :focus) {
+        scale: 1.15;
       }
     }
   }
@@ -328,13 +351,13 @@ body {
     }
 
     &-title {
-      box-shadow: 5px 5px color(light-clr--dimmed);
-      background-color: color(dark-clr);
-      color: color(light-clr);
+      box-shadow: 5px 5px color(primary-clr--dimmed);
+      background-color: color(secondary-clr);
+      color: color(primary-clr);
       text-align: center;
       font-weight: 700;
       padding: 0.5em 1em;
-      margin-bottom: -1rem;
+      margin-block-end: -1rem;
 
       &:first-of-type {
         grid-row: 1;
@@ -356,20 +379,19 @@ body {
       transition: box-shadow var(--transition-duration) ease-in-out, color var(--transition-duration) ease-in-out;
 
       & > i {
-        transition: transform var(--transition-duration) ease-in-out;
+        transition: scale var(--transition-duration) ease-in-out;
       }
 
-      &:hover,
-      &:focus {
+      &:is(:hover, :focus) {
         & > i {
-          transform: scale(1.15);
+          scale: 1.15;
         }
       }
     }
 
     &-value {
-      box-shadow: 5px 5px color(light-clr--dimmed);
-      border: 3px solid var(--bg-clr, color(dark-clr));
+      box-shadow: 5px 5px color(primary-clr--dimmed);
+      border: 3px solid var(--bg-clr, color(secondary-clr));
       font-weight: 700;
       text-align: center;
       transition: background-color var(--transition-duration) ease-in-out,
@@ -455,8 +477,7 @@ body {
     transition: box-shadow var(--transition-duration) ease-in-out,
       background-color var(--transition-duration) ease-in-out;
 
-    &:hover,
-    &:focus {
+    &:is(:hover, :focus) {
       background-color: color(danger-clr);
     }
 
